@@ -6,7 +6,6 @@ package com.test.awayteam;
 public class Shield extends Subsystem {
 
     private boolean isRaised = false;
-    private boolean isDamaged = false;
     private int strength = 4000;
     private int maxEnergy = 10000;
     private int minEnergy = 0;
@@ -43,17 +42,6 @@ public class Shield extends Subsystem {
         return strength;
     }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public boolean isDamaged() {
-        return isDamaged;
-    }
-
-    public void setIsDamaged(boolean isDamaged) {
-        this.isDamaged = isDamaged;
-    }
 
     public int transferInEnergy(final int energy) {
         int excessEnergy = 0;

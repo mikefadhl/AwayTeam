@@ -51,7 +51,7 @@ public class ShipTest {
         ship.takeHit(4001);
         assertEquals("Shields strength depleted by 4001 from default of 4000", 0, shield.getStrength());
         assertTrue("Shields are down", shield.isDown());
-        //assertTrue("Subsystem is damaged", ship.getSubsystems().get(0).isDamaged());
+        assertTrue("Subsystem is damaged", ship.getSubsystems().get(0).isDamaged());
     }
 
 

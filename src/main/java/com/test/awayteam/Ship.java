@@ -23,7 +23,7 @@ public class Ship {
         Shield shield = (Shield) subsystems.get(0);
         hitIntensity = shield.takeHit(hitIntensity);
         if (hitIntensity > 0){
-            subsystems.get(0).damageASubsystem(0);
+            subsystems.get(0).damage();
         }
     }
 }

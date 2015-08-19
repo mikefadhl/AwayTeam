@@ -75,15 +75,6 @@ public class ShieldTest {
         assertTrue("Shields is down", shield.isDown());
     }
 
-    @Ignore
-    @Test
-    public void remainingHitDamagesSubSystem() {
-        Subsystem subsystem = new Subsystem();
-        shield.raise();
-        shield.takeHit(5000);
-        assertTrue(shield.isDamaged());
-    }
-
     @Test
     public void testTransferInEnergyInvalidMaximumValue() {
         Assert.assertEquals(1, shield.transferInEnergy(6001));
@@ -111,5 +102,10 @@ public class ShieldTest {
     public void testTransferOutEnergyNegativeValueTest() {
         Assert.assertEquals(0, shield.transferOutEnergy(-5000));
         Assert.assertEquals(4000, shield.getStrength());
+    }
+
+    @Test
+    public void newSubsystemStartsOutNotDamaged() {
+        assertFalse(shield.isDamaged());
     }
 }
