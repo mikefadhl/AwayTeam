@@ -50,8 +50,15 @@ public class ShieldTest {
 
     @Test
     public void takeHitDepletesShields() {
+        shield.raise();
         shield.takeHit(500);
         assertEquals("Shields strength depleted by 500 from default of 4000", 3500, shield.getStrength());
+    }
+
+    @Test
+    public void takeHitDoesNotDepleteShieldsIfDown() {
+        shield.takeHit(500);
+        assertEquals("Shields strength depleted by 500 from default of 4000", 4000, shield.getStrength());
     }
 
     @Test
