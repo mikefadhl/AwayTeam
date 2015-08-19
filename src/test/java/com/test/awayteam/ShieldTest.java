@@ -51,12 +51,14 @@ public class ShieldTest {
     @Test
     public void takeHitDepletesShields() {
         shield.takeHit(500);
-        assertEquals("Shields strength depletes by 500 from default of 4000", 3500, shield.getStrength());
+        assertEquals("Shields strength depleted by 500 from default of 4000", 3500, shield.getStrength());
     }
 
     @Test
     public void takeHitBucklesShields(){
         shield.takeHit(5000);
-        assertEquals("Shields have buckled and have been disabled", 0, shield.getStrength());
+        shield.setIsDamaged(true);
+        assertEquals("Shields have buckled", 0, shield.getStrength());
+        assertEquals("Shields are damaged", true, shield.isDamaged());
     }
 }
