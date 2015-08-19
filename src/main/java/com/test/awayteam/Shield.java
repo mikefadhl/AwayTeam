@@ -25,14 +25,19 @@ public class Shield {
         this.strength = this.strength + energy;
     }
 
-    public void takeHit(int hitIntensity) {
+    public int takeHit(int hitIntensity) {
         if (isRaised) {
-            strength -= hitIntensity;
-            if (strength < 0){
-                strength = 0;
+            if (hitIntensity > strength) {
                 down();
+                hitIntensity -= strength;
+                strength = 0;
+            } else {
+                strength -= hitIntensity;
+                hitIntensity = 0;
             }
         }
+
+        return hitIntensity;
     }
 
     public int getStrength() {
