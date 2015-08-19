@@ -32,10 +32,27 @@ public class ShipTest {
     @Test
     public void takeHitDepletesShields() {
         shield.raise();
-        ship.takeHit(500);
-//        int unabsorbedIntensity = shield.takeHit(500);
-        assertEquals("Shields strength depleted by 500 from default of 4000", 3500, shield.getStrength());
-//        assertEquals("Shields return 0 as unabsorbed", 0, unabsorbedIntensity);
+        ship.takeHit(3999);
+        assertEquals("Shields strength depleted by 500 from default of 4000", 1, shield.getStrength());
         assertFalse("Shields is still up", shield.isDown());
     }
+
+    @Test
+    public void takeHitDepletesShieldsAndBringsDown() {
+        shield.raise();
+        ship.takeHit(4000);
+        assertEquals("Shields strength depleted by 4000 from default of 4000", 0, shield.getStrength());
+        assertTrue("Shields are down", shield.isDown());
+    }
+
+    @Test
+    public void takeHitDepletesShieldsAndBringsDownAndDamagesSubsystem() {
+        shield.raise();
+        ship.takeHit(4001);
+        assertEquals("Shields strength depleted by 4001 from default of 4000", 0, shield.getStrength());
+        assertTrue("Shields are down", shield.isDown());
+        //assertTrue("Subsystem is damaged", ship.getSubsystems().get(0).isDamaged());
+    }
+
+
 }

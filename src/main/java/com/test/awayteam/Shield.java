@@ -25,11 +25,10 @@ public class Shield extends Subsystem {
 
     public int takeHit(int hitIntensity) {
         if (isRaised) {
-            if (hitIntensity > strength) {
+            if (hitIntensity >= strength) {
                 down();
                 hitIntensity -= strength;
                 strength = 0;
-
             } else {
                 strength -= hitIntensity;
                 hitIntensity = 0;
