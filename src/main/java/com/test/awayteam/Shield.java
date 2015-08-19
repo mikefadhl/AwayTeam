@@ -3,7 +3,7 @@ package com.test.awayteam;
 /**
  * Created by pkar1 on 8/18/15.
  */
-public class Shield {
+public class Shield extends Subsystem {
 
     private boolean isRaised = false;
     private boolean isDamaged = false;
@@ -29,6 +29,7 @@ public class Shield {
                 down();
                 hitIntensity -= strength;
                 strength = 0;
+
             } else {
                 strength -= hitIntensity;
                 hitIntensity = 0;

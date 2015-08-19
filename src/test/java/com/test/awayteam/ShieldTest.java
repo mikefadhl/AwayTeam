@@ -13,11 +13,13 @@ import static org.junit.Assert.assertTrue;
  * Created by pkar1 on 8/18/15.
  */
 public class ShieldTest {
+    private Ship ship;
     private Shield shield;
 
     @Before
     public void setUp() throws Exception {
-        shield = new Shield();
+        ship = new Ship();
+        shield = (Shield) ship.getSubsystems().get(0);
     }
 
     @Test
@@ -76,14 +78,14 @@ public class ShieldTest {
         assertTrue("Shields is down", shield.isDown());
     }
 
-//
-//    @Test
-//    public void remainingHitDamagesSubSystem() {
-//        Subsystem subsystem = new Subsystem();
-//        shield.raise();
-//        shield.takeHit(5000);
-//        assertTrue(subsystem.isDamaged());
-//    }
+
+    @Test
+    public void remainingHitDamagesSubSystem() {
+        Subsystem subsystem = new Subsystem();
+        shield.raise();
+        shield.takeHit(5000);
+        assertTrue(shield.isDamaged());
+    }
 
 
     @Test
