@@ -6,6 +6,7 @@ package com.test.awayteam;
 public class Shield {
 
     private boolean isRaised = false;
+    private boolean isDisabled = false;
     private int strength = 4000;
 
     public boolean isDown(){
@@ -26,6 +27,7 @@ public class Shield {
 
     public void takeHit(int hitIntensity) {
         strength -= hitIntensity;
+        if (strength - hitIntensity  < 0) strength = 0 ;
     }
 
     public int getStrength() {
@@ -34,5 +36,13 @@ public class Shield {
 
     public void setStrength(int strength) {
         this.strength = strength;
+    }
+
+    public boolean disabled() {
+        return isDisabled;
+    }
+
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled = isDisabled;
     }
 }

@@ -52,8 +52,14 @@ public class ShieldTest {
     @Test
     public void takeHitDepletesShields() {
         Shield shield = new Shield();
-
         shield.takeHit(500);
         assertEquals("Shields strength depletes by 500 from default of 4000", 3500, shield.getStrength());
+    }
+
+    @Test
+    public void takeHitBucklesShields(){
+        Shield shield = new Shield();
+        shield.takeHit(5000);
+        assertEquals("Shields have buckled and have been disabled", 0, shield.getStrength());
     }
 }
