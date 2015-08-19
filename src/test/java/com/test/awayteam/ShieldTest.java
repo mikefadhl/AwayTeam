@@ -2,6 +2,7 @@ package com.test.awayteam;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -78,7 +79,7 @@ public class ShieldTest {
         assertTrue("Shields is down", shield.isDown());
     }
 
-
+    @Ignore
     @Test
     public void remainingHitDamagesSubSystem() {
         Subsystem subsystem = new Subsystem();
@@ -86,7 +87,6 @@ public class ShieldTest {
         shield.takeHit(5000);
         assertTrue(shield.isDamaged());
     }
-
 
     @Test
     public void testTransferEnergyInvalidMaximumValue(){
