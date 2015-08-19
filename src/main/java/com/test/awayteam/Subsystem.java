@@ -7,4 +7,8 @@ public class Subsystem {
     public boolean isDamaged() {
         return false;
     }
+
+    public void damageASubsystem(int subsystem){
+
+    }
 }

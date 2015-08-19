@@ -21,6 +21,9 @@ public class Ship {
 
     public void takeHit(int hitIntensity) {
         Shield shield = (Shield) subsystems.get(0);
-        shield.takeHit(hitIntensity);
+        hitIntensity = shield.takeHit(hitIntensity);
+        if (hitIntensity > 0){
+            subsystems.get(0).damageASubsystem(0);
+        }
     }
 }
