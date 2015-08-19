@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -53,19 +55,21 @@ public class ShieldTest {
         shield.raise();
         shield.takeHit(500);
         assertEquals("Shields strength depleted by 500 from default of 4000", 3500, shield.getStrength());
+        assertFalse("Shields is still up", shield.isDown());
     }
 
     @Test
     public void takeHitDoesNotDepleteShieldsIfDown() {
         shield.takeHit(500);
         assertEquals("Shields strength depleted by 500 from default of 4000", 4000, shield.getStrength());
+        assertTrue("Shields is still down", shield.isDown());
     }
 
     @Test
     public void takeHitBucklesShields(){
+        shield.raise();
         shield.takeHit(5000);
-        shield.setIsDamaged(true);
         assertEquals("Shields have buckled", 0, shield.getStrength());
-        assertEquals("Shields are damaged", true, shield.isDamaged());
+        assertTrue("Shields is down", shield.isDown());
     }
 }

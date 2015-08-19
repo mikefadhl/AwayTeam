@@ -28,7 +28,10 @@ public class Shield {
     public void takeHit(int hitIntensity) {
         if (isRaised) {
             strength -= hitIntensity;
-            if (strength - hitIntensity < 0) strength = 0;
+            if (strength < 0){
+                strength = 0;
+                down();
+            }
         }
     }
 
