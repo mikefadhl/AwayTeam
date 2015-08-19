@@ -8,6 +8,7 @@ public class Shield {
     private boolean isRaised = false;
     private boolean isDamaged = false;
     private int strength = 4000;
+    private int maxEnergy = 10000;
 
     public boolean isDown(){
         return !isRaised;
@@ -21,9 +22,6 @@ public class Shield {
         this.isRaised = false;
     }
 
-    public void transferEnergy(final int energy) {
-        this.strength = this.strength + energy;
-    }
 
     public int takeHit(int hitIntensity) {
         if (isRaised) {
@@ -54,5 +52,16 @@ public class Shield {
 
     public void setIsDamaged(boolean isDamaged) {
         this.isDamaged = isDamaged;
+    }
+
+    public int transferEnergy(final int energy) {
+        int excessEnergy = 0;
+        this.strength = this.strength + energy;
+
+        if(this.strength > this.maxEnergy){
+            excessEnergy =  this.strength - this.maxEnergy;
+            this.strength = this.strength - excessEnergy;
+        }
+        return excessEnergy;
     }
 }
