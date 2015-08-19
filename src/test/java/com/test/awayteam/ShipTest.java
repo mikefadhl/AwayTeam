@@ -17,17 +17,16 @@ public class ShipTest {
     @Before
     public void setUp() throws Exception {
         ship = new Ship();
-        shield = (Shield) ship.getSubsystems().get(0);
+        shield = (Shield) ship.getSubsystems().get("shield");
     }
 
     @Test
     public void shipHasSubsystem() {
         Ship ship = new Ship();
         assertFalse("Ship has a list of subsystems", ship.getSubsystems().isEmpty());
-        assertEquals("The ship has only one subsystem now", 1, ship.getSubsystems().size());
-        assertEquals("The only subsystem is shields", Shield.class, ship.getSubsystems().get(0).getClass());
+        assertEquals("The ship has three subsystems now", 3, ship.getSubsystems().size());
+        assertEquals("The first subsystem is shields", Shield.class, ship.getSubsystems().get("shield").getClass());
     }
-
 
     @Test
     public void takeHitDepletesShields() {
@@ -51,7 +50,7 @@ public class ShipTest {
         ship.takeHit(4001);
         assertEquals("Shields strength depleted by 4001 from default of 4000", 0, shield.getStrength());
         assertTrue("Shields are down", shield.isDown());
-        assertTrue("Subsystem is damaged", ship.getSubsystems().get(0).isDamaged());
+        assertTrue("Subsystem is damaged", ship.getSubsystems().get("shield").isDamaged());
     }
 
 

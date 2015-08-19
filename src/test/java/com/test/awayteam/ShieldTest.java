@@ -20,7 +20,7 @@ public class ShieldTest {
     @Before
     public void setUp() throws Exception {
         ship = new Ship();
-        shield = (Shield) ship.getSubsystems().get(0);
+        shield = (Shield) ship.getSubsystems().get("shield");
     }
 
     @Test
