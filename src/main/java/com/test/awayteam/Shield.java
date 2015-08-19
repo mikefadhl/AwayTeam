@@ -9,8 +9,9 @@ public class Shield extends Subsystem {
     private boolean isDamaged = false;
     private int strength = 4000;
     private int maxEnergy = 10000;
+    private int minEnergy = 0;
 
-    public boolean isDown(){
+    public boolean isDown() {
         return !isRaised;
     }
 
@@ -55,14 +56,35 @@ public class Shield extends Subsystem {
         this.isDamaged = isDamaged;
     }
 
-    public int transferEnergy(final int energy) {
+    public int transferInEnergy(final int energy) {
         int excessEnergy = 0;
+
+        if (energy <= 0) {
+            return excessEnergy;
+        }
         this.strength = this.strength + energy;
 
-        if(this.strength > this.maxEnergy){
-            excessEnergy =  this.strength - this.maxEnergy;
+        if (this.strength > this.maxEnergy) {
+            excessEnergy = this.strength - this.maxEnergy;
             this.strength = this.strength - excessEnergy;
         }
         return excessEnergy;
+    }
+
+    public int transferOutEnergy(final int energy) {
+        int returnEnergy = 0;
+
+        if (energy <= 0) {
+            return returnEnergy;
+        }
+
+        if (energy >= this.strength) {
+            returnEnergy = this.strength;
+            this.strength = 0;
+        } else {
+            returnEnergy = energy;
+            this.strength = this.strength - energy;
+        }
+        return returnEnergy;
     }
 }

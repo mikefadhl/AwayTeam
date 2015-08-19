@@ -23,18 +23,19 @@ public class ShieldTest {
     }
 
     @Test
-    public void shieldsByDefaultDown(){
+    public void shieldsByDefaultDown() {
         Assert.assertTrue(shield.isDown());
     }
 
     @Test
-    public void shieldsCanBeRaised(){
+    public void shieldsCanBeRaised() {
         shield.raise();
         Assert.assertFalse(shield.isDown());
     }
 
     @Test
-    public void testShieldDown(){
+    public void testShieldDown() {
+        shield.raise();
         shield.down();
         Assert.assertTrue(shield.isDown());
     }
@@ -44,12 +45,7 @@ public class ShieldTest {
     }
 
     @Test
-    public void testRaise() throws Exception {}
-
-    @Test
-    public void testTransferEnergy(){
-        shield.transferEnergy(1000);
-        assertEquals(5000, shield.getStrength());
+    public void testRaise() throws Exception {
     }
 
     @Test
@@ -70,7 +66,7 @@ public class ShieldTest {
     }
 
     @Test
-    public void takeHitBucklesShields(){
+    public void takeHitBucklesShields() {
         shield.raise();
         int unabsorbedIntensity = shield.takeHit(5000);
         assertEquals("Shields have buckled", 0, shield.getStrength());
@@ -87,12 +83,38 @@ public class ShieldTest {
         assertTrue(shield.isDamaged());
     }
 
+    @Test
+    public void testTransferInEnergy() {
+        shield.transferInEnergy(1000);
+        assertEquals(5000, shield.getStrength());
+    }
 
     @Test
-    public void testTransferEnergyInvalidMaximumValue(){
-        Shield shield = new Shield();
-        Assert.assertEquals(1000, shield.transferEnergy(7000));
+    public void testTransferInEnergyInvalidMaximumValue() {
+        Assert.assertEquals(1, shield.transferInEnergy(6001));
         Assert.assertEquals(10000, shield.getStrength());
     }
 
+    @Test
+    public void testTransferInEnergyInvalidMinimumValue() {
+        Assert.assertEquals(0, shield.transferInEnergy(-1));
+    }
+
+    @Test
+    public void testTransferOutEnergy() {
+        Assert.assertEquals(1000, shield.transferOutEnergy(1000));
+        Assert.assertEquals(3000, shield.getStrength());
+    }
+
+    @Test
+    public void testTransferOutEnergyMoreThanShieldsCurrentEnergyLimit() {
+        Assert.assertEquals(4000, shield.transferOutEnergy(5000));
+        Assert.assertEquals(0, shield.getStrength());
+    }
+
+    @Test
+    public void testTransferOutEnergyNegativeValueTest() {
+        Assert.assertEquals(0, shield.transferOutEnergy(-5000));
+        Assert.assertEquals(4000, shield.getStrength());
+    }
 }
