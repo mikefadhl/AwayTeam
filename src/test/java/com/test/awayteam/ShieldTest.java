@@ -53,23 +53,44 @@ public class ShieldTest {
     @Test
     public void takeHitDepletesShields() {
         shield.raise();
-        shield.takeHit(500);
+        int unabsorbedIntensity = shield.takeHit(500);
         assertEquals("Shields strength depleted by 500 from default of 4000", 3500, shield.getStrength());
+        assertEquals("Shields return 0 as unabsorbed", 0, unabsorbedIntensity);
         assertFalse("Shields is still up", shield.isDown());
     }
 
     @Test
     public void takeHitDoesNotDepleteShieldsIfDown() {
-        shield.takeHit(500);
-        assertEquals("Shields strength depleted by 500 from default of 4000", 4000, shield.getStrength());
+        int unabsorbedIntensity = shield.takeHit(500);
+        assertEquals("Shields strength depleted by 0 from default of 4000", 4000, shield.getStrength());
+        assertEquals("Shields return the whole strength as unabsorbed", 500, unabsorbedIntensity);
         assertTrue("Shields is still down", shield.isDown());
     }
 
     @Test
     public void takeHitBucklesShields(){
         shield.raise();
-        shield.takeHit(5000);
+        int unabsorbedIntensity = shield.takeHit(5000);
         assertEquals("Shields have buckled", 0, shield.getStrength());
+        assertEquals("Shields return 1000 as unabsorbed", 1000, unabsorbedIntensity);
         assertTrue("Shields is down", shield.isDown());
     }
+
+//
+//    @Test
+//    public void remainingHitDamagesSubSystem() {
+//        Subsystem subsystem = new Subsystem();
+//        shield.raise();
+//        shield.takeHit(5000);
+//        assertTrue(subsystem.isDamaged());
+//    }
+
+
+    @Test
+    public void testTransferEnergyInvalidMaximumValue(){
+        Shield shield = new Shield();
+        Assert.assertEquals(1000, shield.transferEnergy(7000));
+        Assert.assertEquals(10000, shield.getStrength());
+    }
+
 }
