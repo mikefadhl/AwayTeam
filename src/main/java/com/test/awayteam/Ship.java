@@ -50,8 +50,15 @@ public class Ship {
         this.strength = this.strength + shield.transferOutEnergy(energy);
     }
 
-    public void giveEnergyToShield(final int energy) {
-        if(energy < 0) return;
+    public void giveEnergyToShield(int energy) {
+
+        if(energy < 0){
+            return;
+        }
+
+        if(energy > this.strength){
+            energy = this.strength;
+        }
         Shield shield = (Shield) subsystems.get(shieldKey);
         int excessEnergy = shield.transferInEnergy(energy);
         this.strength = this.strength - energy + excessEnergy;
