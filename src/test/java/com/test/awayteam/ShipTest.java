@@ -30,7 +30,23 @@ public class ShipTest {
         Ship ship = new Ship();
         assertFalse("Ship has a list of subsystems", ship.getSubsystems().isEmpty());
         assertEquals("The ship has three subsystems now", 3, ship.getSubsystems().size());
-        assertEquals("The first subsystem is shields", Shield.class, ship.getSubsystems().get("shield").getClass());
+    }
+
+    @Test
+    public void shipHasThreeSubsystem() {
+        Ship ship = new Ship();
+        assertEquals("The ship has a Shield subsystem", Shield.class, ship.getSubsystems().get("shield").getClass());
+        assertEquals("The ship has a Weapon subsystem", Weapon.class, ship.getSubsystems().get("weapon").getClass());
+        assertEquals("The ship has a Engine subsystem", Engine.class, ship.getSubsystems().get("engine").getClass());
+    }
+
+    @Test
+    public void shipHasSubsystemInOrder() {
+        Ship ship = new Ship();
+        Object[] values = ship.getSubsystems().values().toArray();
+        assertEquals("The first subsystem is Shield", Shield.class, values[0].getClass());
+        assertEquals("The second subsystem is Weapon", Weapon.class, values[1].getClass());
+        assertEquals("The third subsystem is Engine", Engine.class, values[2].getClass());
     }
 
     @Test
@@ -50,15 +66,27 @@ public class ShipTest {
     }
 
     @Test
-    public void takeHitDepletesShieldsAndBringsDownAndDamagesRandomSubsystem() {
+    public void takeHitDepletesShieldsAndBringsDownAndDamagesRandomShieldSubsystem() {
         Random mockedRandom = Mockito.mock(Random.class);
         ship.setGenerator(mockedRandom);
-        when(mockedRandom.nextInt(anyInt())).thenReturn(0);
         shield.raise();
+        when(mockedRandom.nextInt(anyInt())).thenReturn(0);
         ship.takeHit(4001);
         assertEquals("Shields strength depleted by 4001 from default of 4000", 0, shield.getStrength());
         assertTrue("Shields are down", shield.isDown());
         assertTrue("Subsystem Weapon is damaged", ship.getSubsystems().get("shield").isDamaged());
+    }
+
+    @Test
+    public void takeHitDepletesShieldsAndBringsDownAndDamagesRandomEngineSubsystem() {
+        Random mockedRandom = Mockito.mock(Random.class);
+        ship.setGenerator(mockedRandom);
+        shield.raise();
+        when(mockedRandom.nextInt(anyInt())).thenReturn(2);
+        ship.takeHit(4001);
+        assertEquals("Shields strength depleted by 4001 from default of 4000", 0, shield.getStrength());
+        assertTrue("Shields are down", shield.isDown());
+        assertTrue("Subsystem Weapon is damaged", ship.getSubsystems().get("engine").isDamaged());
     }
 
     @Test
