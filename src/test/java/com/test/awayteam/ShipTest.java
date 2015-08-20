@@ -2,7 +2,11 @@ package com.test.awayteam;
 
 import org.junit.Before;
 import org.junit.Test;
-
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -10,9 +14,12 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by mfadh1 on 8/19/15.
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ Random.class, Ship.class })
 public class ShipTest {
     private Ship ship;
     private Shield shield;
+    Random mockedRandom;
 
     @Before
     public void setUp() throws Exception {
@@ -45,13 +52,18 @@ public class ShipTest {
     }
 
     @Test
-    public void takeHitDepletesShieldsAndBringsDownAndDamagesSubsystem() {
+    public void takeHitDepletesShieldsAndBringsDownAndDamagesRandomSubsystem() {
+        mockedRandom = PowerMockito.mock(Random.class);
+        try {
+            PowerMockito.whenNew(Random.class).withNoArguments().thenReturn(mockedRandom);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        PowerMockito.doReturn(1).when(mockedRandom).nextInt(ship.getSubsystems().size());
         shield.raise();
         ship.takeHit(4001);
         assertEquals("Shields strength depleted by 4001 from default of 4000", 0, shield.getStrength());
         assertTrue("Shields are down", shield.isDown());
-        assertTrue("Subsystem is damaged", ship.getSubsystems().get("shield").isDamaged());
+        assertTrue("Subsystem is damaged", ship.getSubsystems().get("weapon").isDamaged());
     }
-
-
 }

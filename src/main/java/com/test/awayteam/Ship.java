@@ -20,12 +20,15 @@ public class Ship {
     public Map<String, Subsystem> getSubsystems() {
         return subsystems;
     }
-
-    public void takeHit(int hitIntensity) {
+    
+    protected void takeHit(int hitIntensity) {
         Shield shield = (Shield) subsystems.get("shield");
+        Random generator = new Random();
         hitIntensity = shield.takeHit(hitIntensity);
-        if (hitIntensity > 0){
-            subsystems.get("shield").damage();
+        if (hitIntensity > 0) {
+            Object[] values = subsystems.values().toArray();
+            Subsystem randomSubsystem = (Subsystem) values[generator.nextInt(values.length)];
+            randomSubsystem.damage();
         }
     }
 }
