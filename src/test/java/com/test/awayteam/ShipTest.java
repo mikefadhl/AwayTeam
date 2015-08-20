@@ -104,4 +104,11 @@ public class ShipTest {
         assertEquals(4000, ship.getStrength());
         assertEquals(4000,shield.getStrength());
     }
+
+    @Test
+    public void testGiveEnergyToShieldMoreThanCurrentEnergyLevelInShip(){
+        ship.giveEnergyToShield(4001);
+        assertEquals(0, ship.getStrength());
+        assertEquals(8000, shield.getStrength());
+    }
 }
