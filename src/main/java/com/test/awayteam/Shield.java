@@ -15,7 +15,9 @@ public class Shield extends Subsystem {
     }
 
     public void raise() {
-        this.isRaised = true;
+        if(!isDamaged()) {
+            this.isRaised = true;
+        }
     }
 
     public void down() {

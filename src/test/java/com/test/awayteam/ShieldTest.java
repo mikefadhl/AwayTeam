@@ -34,6 +34,13 @@ public class ShieldTest {
     }
 
     @Test
+    public void shieldsCanNotBeRaisedIfDisabled() {
+        shield.damage();
+        shield.raise();
+        Assert.assertTrue(shield.isDown());
+    }
+
+    @Test
     public void testShieldDown() {
         shield.raise();
         Assert.assertFalse(shield.isDown());
