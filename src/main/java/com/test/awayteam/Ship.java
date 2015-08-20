@@ -9,8 +9,9 @@ public class Ship {
     private final String shieldKey = "shield";
     private final String weaponKey = "weapon";
     private final String engineyKey = "engine";
-    private Map<String, Subsystem> subsystems = new HashMap<String, Subsystem>();
+    private Map<String, Subsystem> subsystems = new LinkedHashMap<String, Subsystem>();
     private int strength = 4000;
+    private Random generator = new Random();
 
     public Ship() {
         Shield shield = new Shield();
@@ -26,6 +27,10 @@ public class Ship {
         this.strength = strength;
     }
 
+    public void setGenerator(Random generator) {
+        this.generator = generator;
+    }
+
     public int getStrength() {
         return strength;
     }
@@ -36,7 +41,6 @@ public class Ship {
     
     protected void takeHit(int hitIntensity) {
         Shield shield = (Shield) subsystems.get(shieldKey);
-        Random generator = new Random();
         hitIntensity = shield.takeHit(hitIntensity);
         if (hitIntensity > 0) {
             Object[] values = subsystems.values().toArray();
