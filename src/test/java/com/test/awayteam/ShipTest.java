@@ -1,19 +1,12 @@
 package com.test.awayteam;
 
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
-<<<<<<< HEAD
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.Random;
-=======
-
-import java.util.List;
-
->>>>>>> 8d68cae279f753cc0e4b357c26d289b32a17d7da
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,11 +17,10 @@ import static org.junit.Assert.assertTrue;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ Random.class, Ship.class })
 public class ShipTest {
+    private final String shieldKey = "shield";
+    Random mockedRandom;
     private Ship ship;
     private Shield shield;
-    Random mockedRandom;
-
-    private final String shieldKey = "shield";
 
     @Before
     public void setUp() throws Exception {
@@ -75,8 +67,6 @@ public class ShipTest {
         assertTrue("Shields are down", shield.isDown());
         assertTrue("Subsystem is damaged", ship.getSubsystems().get("weapon").isDamaged());
     }
-<<<<<<< HEAD
-=======
 
     @Test
     public void testGetEnergyFromShield(){
@@ -122,5 +112,4 @@ public class ShipTest {
         assertEquals(4000, ship.getStrength());
         assertEquals(4000,shield.getStrength());
     }
->>>>>>> 8d68cae279f753cc0e4b357c26d289b32a17d7da
 }
