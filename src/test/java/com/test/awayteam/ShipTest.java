@@ -40,7 +40,7 @@ public class ShipTest {
     public void takeHitDepletesShields() {
         shield.raise();
         ship.takeHit(3999);
-        assertEquals("Shields strength depleted by 500 from default of 4000", 1, shield.getStrength());
+        assertEquals("Shields strength depleted by 3999 from default of 4000", 1, shield.getStrength());
         assertFalse("Shields is still up", shield.isDown());
     }
 
@@ -65,7 +65,7 @@ public class ShipTest {
         ship.takeHit(4001);
         assertEquals("Shields strength depleted by 4001 from default of 4000", 0, shield.getStrength());
         assertTrue("Shields are down", shield.isDown());
-        assertTrue("Subsystem is damaged", ship.getSubsystems().get("weapon").isDamaged());
+        assertTrue("Subsystem Weapon is damaged", ship.getSubsystems().get("weapon").isDamaged());
     }
 
     @Test
@@ -89,7 +89,6 @@ public class ShipTest {
         assertEquals(4000,shield.getStrength());
     }
 
-    // give
     @Test
     public void testGiveEnergyToShield(){
         ship.giveEnergyToShield(1000);

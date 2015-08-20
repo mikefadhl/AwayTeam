@@ -2,7 +2,6 @@ package com.test.awayteam;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -37,16 +36,9 @@ public class ShieldTest {
     @Test
     public void testShieldDown() {
         shield.raise();
+        Assert.assertFalse(shield.isDown());
         shield.down();
         Assert.assertTrue(shield.isDown());
-    }
-
-    @Test
-    public void testIsDown() throws Exception {
-    }
-
-    @Test
-    public void testRaise() throws Exception {
     }
 
     @Test
