@@ -23,7 +23,7 @@ public class ShipTest {
     private Shield shield;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         ship = new Ship();
         shield = (Shield) ship.getSubsystems().get(shieldKey);
     }
